@@ -16,7 +16,7 @@ class User {
         this.height = height
         this.weight = weight
     }
-
+    //empty constructor
     constructor(){
 
     }
