@@ -1,7 +1,7 @@
 package com.example.caloriecounterapp
 
 class User {
-
+    //user variable     
     var id : Int = 0
     var name : String = ""
     var age : Int = 0
