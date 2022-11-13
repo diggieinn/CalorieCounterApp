@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".targetActivity">
+
+    <ImageView
+        android:id="@+id/logoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="LOGO: Calorie Counter - Eat Healthy" />
+
+    <!-- Field for user to enter Target Weight below logo -->
+    <EditText
+        android:id="@+id/editTargetWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Enter your target weight"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoView"
+        android:autofillHints="" />
+
+
+    <!-- Simple Text on top of Radio Group buttons that Says Weekly Weight Loss Goal -->
+    <TextView
+        android:id="@+id/WeeklyWeightLossGoalTect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Weekly Weight Loss Goal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTargetWeight" />
+
+
+   <!-- Radio Group view so user can select between 0,5kg, 1kg, 1,5kg and 2kg Weekly Weight Loss Goal below target weight field -->
+    <RadioGroup
+        android:id="@+id/radioGroupWeeklyWeightLossGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTargetWeight">
+
+        <RadioButton
+            android:id="@+id/radioButtonZeroKilosAndAHalf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0,5kg" />
+
+        <RadioButton
+            android:id="@+id/radioButtonOneKillo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1kg" />
+
+        <RadioButton
+            android:id="@+id/radioButtonOneKilloAndAHalf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1,5kg" />
+
+        <RadioButton
+            android:id="@+id/radioButtonTwoKillos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2kg" />
+
+    </RadioGroup>
+
+    <!-- button to go to everyday activity -->
+    <Button
+        android:id="@+id/buttonToEveryday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="To Everyday Screen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupWeeklyWeightLossGoal" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
