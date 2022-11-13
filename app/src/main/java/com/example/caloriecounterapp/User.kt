@@ -8,6 +8,8 @@ class User {
     var height : Int = 0
     var weight : Int = 0
 
+    //constructor
+
     constructor(name: String, age: Int, height: Int, weight: Int) {
         this.name = name
         this.age = age
