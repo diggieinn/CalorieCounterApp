@@ -2,5 +2,6 @@
     <string name="app_name">Calorie Counter App</string>
     <string name="open">Open Nav Bar</string>
     <string name="close">Close Nav Bar</string>
+    <string name="enter_calories">Enter calories</string>
 
 </resources>
