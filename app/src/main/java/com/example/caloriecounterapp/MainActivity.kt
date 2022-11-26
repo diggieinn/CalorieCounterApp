@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 db.insertData(user)
 
              Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, targetActivity::class.java)
                 startActivity(intent)
             }
             else{
