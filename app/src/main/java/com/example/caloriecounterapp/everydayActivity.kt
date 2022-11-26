@@ -1,9 +1,11 @@
 package com.example.caloriecounterapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+
 import kotlinx.*
 
 
@@ -27,6 +29,8 @@ class everydayActivity : AppCompatActivity() {
             if(editFood.text.toString().length > 0 && editCalories.text.toString().length > 0){
                 var meal = Meals(editFood.text.toString(), editCalories.text.toString().toInt())
                 db.insertMeal(meal)
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
             }
         }
 
