@@ -71,8 +71,4 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
         db.delete(TABLE_NAME, null, null)
         db.close()
     }
-
-
-
-
 }

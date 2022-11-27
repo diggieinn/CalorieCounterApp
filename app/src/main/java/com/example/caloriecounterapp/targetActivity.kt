@@ -68,6 +68,3 @@ class targetActivity : AppCompatActivity() {
 }
 
 
-//if (name.text.toString().length > 0 && age.text.toString().length > 0 && height.text.toString().length > 0 && weight.text.toString().length > 0) {
-
-//}

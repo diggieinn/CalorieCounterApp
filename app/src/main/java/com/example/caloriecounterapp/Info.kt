@@ -3,14 +3,13 @@ package com.example.caloriecounterapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 
-class Profile : AppCompatActivity() {
+class Info : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var actionBarToggle: ActionBarDrawerToggle
@@ -18,27 +17,7 @@ class Profile : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
-        var db = DatabaseHandler(this)
-        var user = db.readData()
-
-        var name = findViewById<TextView>(R.id.userName)
-        var age = findViewById<TextView>(R.id.userAge)
-        var height = findViewById<TextView>(R.id.userHeight)
-        var weight = findViewById<TextView>(R.id.userWeight)
-        var gender = findViewById<TextView>(R.id.userGender)
-        var goal = findViewById<TextView>(R.id.weightLossTarget)
-
-        val lastOne = user.size - 1
-
-        name.text =   "User name: "+ user.get(lastOne).name
-        age.text = "Age: "+ user.get(lastOne).age.toString()
-        height.text = "Height: "+ user.get(lastOne).height.toString()
-        weight.text =  "Weight: "+ user.get(lastOne).weight.toString()
-        gender.text =  "Gender: "+ user.get(lastOne).gender.uppercase()
-        goal.text = "Goal: "+  user.get(lastOne).weightLossTarget.toString()
-
-
+        setContentView(R.layout.activity_info)
 
 
         //navigation drawer
@@ -100,13 +79,6 @@ class Profile : AppCompatActivity() {
                 }
             }
         }
-
-
-
-
-
-
-
 
 
 

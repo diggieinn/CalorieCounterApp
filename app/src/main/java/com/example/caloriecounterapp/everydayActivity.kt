@@ -60,7 +60,7 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
 
 
         val btnAddMeal = findViewById<Button>(R.id.btnAddMeal)
-        val btnShowMeals = findViewById<Button>(R.id.btnShowMeals)
+
         val editFood = findViewById<TextView>(R.id.editFood)
         val editCalories = findViewById<TextView>(R.id.editCalories)
         val btnNewDay = findViewById<Button>(R.id.btnNewDay)
@@ -100,10 +100,23 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
 
                 }
                 R.id.menu_list -> {
+
+                    Intent(this, MealList::class.java).also {
+                        startActivity(it)
+                    }
+
+
                     Toast.makeText(this, "Menu List", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.info -> {
+
+
+                    Intent(this, Info::class.java).also {
+                        startActivity(it)
+                    }
+
+
                     Toast.makeText(this, "Info", Toast.LENGTH_SHORT).show()
                     true
                 }
@@ -125,20 +138,6 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         }
 
 
-        btnShowMeals.setOnClickListener {
-            val data = db.readData()
-            val mealsResult = findViewById<TextView>(R.id.mealsResult)
-            mealsResult.text = ""
-            for (i in 0 until data.size) {
-                mealsResult.append(
-                    "Name of the meal :" + data.get(i).name + " Calories: " + data.get(
-                        i
-                    ).calories + "\n"
-                )
-
-
-            }
-        }
 
         btnNewDay.setOnClickListener{
             db.deleteAllData()
