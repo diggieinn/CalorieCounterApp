@@ -133,6 +133,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/steps" />
 
+    <!-- Button to start a new day -->
+    <Button
+        android:id="@+id/btnNewDay"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="New Day"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_stepsTaken" />
+
 
     <!-- Line to divide logo form the rest of the form -->
     <View
@@ -140,10 +151,9 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:background="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_stepsTaken" />
+        app:layout_constraintTop_toBottomOf="@+id/btnNewDay" />
 
     <!-- Button to show all the meals of the day -->
     <Button

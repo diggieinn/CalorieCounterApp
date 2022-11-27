@@ -23,7 +23,6 @@ import com.google.android.material.navigation.NavigationView
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import com.example.caloriecounterapp.R
-import com.example.caloriecounterapp.databinding.ActivityHomeBinding
 
 import kotlinx.*
 
@@ -40,13 +39,18 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var navView: NavigationView
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_everyday)
 
+
+
         loadData()
-        resetSteps()
         calculateCalories()
+        calculateCaloriesBurned()
+        calculateGoalCalories()
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
@@ -59,6 +63,7 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         val btnShowMeals = findViewById<Button>(R.id.btnShowMeals)
         val editFood = findViewById<TextView>(R.id.editFood)
         val editCalories = findViewById<TextView>(R.id.editCalories)
+        val btnNewDay = findViewById<Button>(R.id.btnNewDay)
 
 
         //navigation drawer
@@ -85,8 +90,14 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.person -> {
+
+                    Intent(this, Profile::class.java).also {
+                        startActivity(it)
+                    }
+
                     Toast.makeText(this, "Person", Toast.LENGTH_SHORT).show()
                     true
+
                 }
                 R.id.menu_list -> {
                     Toast.makeText(this, "Menu List", Toast.LENGTH_SHORT).show()
@@ -107,9 +118,9 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
             if (editFood.text.toString().length > 0 && editCalories.text.toString().length > 0) {
                 var meal = Meals(editFood.text.toString(), editCalories.text.toString().toInt())
                 db.insertMeal(meal)
-//                val intent = Intent(this, HomeActivity::class.java)
-//                startActivity(intent)
+
                 calculateCalories()
+                calculateCaloriesBurned()
             }
         }
 
@@ -128,6 +139,14 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
 
             }
         }
+
+        btnNewDay.setOnClickListener{
+            db.deleteAllData()
+            calculateCalories()
+            calculateCaloriesBurned()
+            resetSteps()
+        }
+
     }
 
     override fun onResume() {
@@ -143,55 +162,27 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    fun resetSteps() {
+    //fun to reset the steps
+    fun resetSteps(){
         var tv_stepsTaken = findViewById<TextView>(R.id.tv_stepsTaken)
-        tv_stepsTaken.setOnClickListener {
-            // This will give a toast message if the user want to reset the steps
-            Toast.makeText(this, "Long tap to reset steps", Toast.LENGTH_SHORT).show()
-        }
-
-        tv_stepsTaken.setOnLongClickListener {
-
-            previousTotalSteps = totalSteps
-
-            // When the user will click long tap on the screen,
-            // the steps will be reset to 0
-            tv_stepsTaken.text = 0.toString()
-
-            // This will save the data
-            saveData()
-
-            true
-        }
-
+        tv_stepsTaken.text = "0"
     }
 
-    private fun saveData() {
 
-        // Shared Preferences will allow us to save
-        // and retrieve data in the form of key,value pair.
-        // In this function we will save data
-        val sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+    private fun loadData(): Float {
 
-        val editor = sharedPreferences.edit()
-        editor.putFloat("key1", previousTotalSteps)
-        editor.apply()
-    }
-
-    private fun loadData() {
-
-        // In this function we will retrieve data
         val sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val savedNumber = sharedPreferences.getFloat("key1", 0f)
 
-        // Log.d is used for debugging purposes
-        Log.d("MainActivity", "$savedNumber")
+        Log.d("Everyday Activity", "$savedNumber")
 
         previousTotalSteps = savedNumber
+
+        return previousTotalSteps
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        // Calling the TextView that we made in activity_main.xml
+
         // by the id given to that TextView
         var tv_stepsTaken = findViewById<TextView>(R.id.tv_stepsTaken)
 
@@ -223,6 +214,36 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         val caloriesResult = findViewById<TextView>(R.id.txtTotalCalories)
         caloriesResult.text = "Total Calories: " + totalCalories.toString()
     }
+
+    //function to calculate the calories burned based on steps each step where each step is 0.04 calories
+    fun calculateCaloriesBurned() {
+        var context = this
+        var db = MealDatabaseHandler(context)
+        val data = db.readData()
+        var totalCalories = 0
+        for (i in 0 until data.size) {
+            totalCalories += data.get(i).calories
+        }
+        val caloriesResult = findViewById<TextView>(R.id.txtRemainingCalories)
+        caloriesResult.text = "Remaining Calories: " + ((totalCalories - loadData().toInt()) * 0.04).toInt().toString()
+    }
+//goal calories calculation
+    fun calculateGoalCalories() {
+        var context = this
+
+
+        var dbUser = DatabaseHandler(context)
+        val userData = dbUser.readData()
+
+
+        // BMR if Male = (10 x weight in kg) + (6.25 x height in cm) - (5 x age in years) + 5
+        val caloriesResult = findViewById<TextView>(R.id.txtGoalCalories)
+        caloriesResult.text = "Goal Calories: " + ((userData.get(0).weight * 10) + (userData.get(0).height * 6.25) - (userData.get(0).age * 5) + 5).toInt().toString()
+
+
+    }
+
+
 
     //nav view methods
     override fun onSupportNavigateUp(): Boolean {

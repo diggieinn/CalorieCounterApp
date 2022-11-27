@@ -1,18 +1,14 @@
 package com.example.caloriecounterapp
 
-
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.caloriecounterapp.R
-import com.example.caloriecounterapp.databinding.ActivityHomeBinding
 import com.google.android.material.navigation.NavigationView
 
-class HomeActivity : AppCompatActivity() {
+class Profile : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var actionBarToggle: ActionBarDrawerToggle
@@ -20,7 +16,10 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_profile)
+
+
+        //navigation drawer
         // Display the hamburger icon to launch the drawer
 
         // Call findViewById on the DrawerLayout
@@ -60,8 +59,14 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+
+
+
+
     }
-    // override the onSupportNavigateUp() function to launch the Drawer when the hamburger icon is clicked
+
+
+    //nav view methods
     override fun onSupportNavigateUp(): Boolean {
         drawerLayout.openDrawer(navView)
         return true
@@ -75,6 +80,6 @@ class HomeActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+
 }
-
-

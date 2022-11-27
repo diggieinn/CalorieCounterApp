@@ -59,15 +59,20 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
               list.add(meal)
           }while(result.moveToNext())
       }
-
-
-
-
-
       result.close()
       db.close()
       return list
   }
+
+
+    // Delete data all data from the database but not the database itself
+    fun deleteAllData(){
+        val db = this.writableDatabase
+        db.delete(TABLE_NAME, null, null)
+        db.close()
+    }
+
+
 
 
 }

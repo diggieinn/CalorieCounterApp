@@ -3,15 +3,10 @@ package com.example.caloriecounterapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 
 
 class MainActivity : AppCompatActivity() {
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,9 +20,7 @@ class MainActivity : AppCompatActivity() {
         val age = findViewById<EditText>(R.id.editAge)
         val height = findViewById<EditText>(R.id.editHeight)
         val weight = findViewById<EditText>(R.id.editWeight)
-
-
-        val context = this
+        val gender = findViewById<EditText>(R.id.editGender)
 
 
 
@@ -37,49 +30,49 @@ class MainActivity : AppCompatActivity() {
         targetButton.setOnClickListener {
 
 
-            if(name.text.toString().length > 0 && age.text.toString().length > 0 && height.text.toString().length > 0 && weight.text.toString().length > 0){
+            if (name.text.toString().length > 0 && age.text.toString().length > 0 && height.text.toString().length > 0 && weight.text.toString().length > 0 && (gender.text.toString().length > 0 || gender.text.toString().length < 2)) {
 
-                var user = User(name.text.toString(), age.text.toString().toInt(), height.text.toString().toInt(), weight.text.toString().toInt())
-                var db = DatabaseHandler(context)
-                db.insertData(user)
 
-             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                //    constructor(name : String, age : Int, height : Int, weight : Int, gender : String, targetWeight : Int, weightLossTarget : Int){
+
+                val nameIn = name.text.toString()
+                val ageIn = age.text.toString().toInt()
+                val heightIn = height.text.toString().toInt()
+                val weightIn = weight.text.toString().toInt()
+                val genderIn = gender.text.toString()
+
+
+
+
+
+
+
                 val intent = Intent(this, targetActivity::class.java)
+
+                intent.putExtra("name", nameIn)
+                intent.putExtra("age", ageIn)
+                intent.putExtra("height", heightIn)
+                intent.putExtra("weight", weightIn)
+                intent.putExtra("gender", genderIn)
+
+
+
+
                 startActivity(intent)
+            } else {
+                Toast.makeText(this, "Please Fill all correct data", Toast.LENGTH_SHORT).show()
             }
-            else{
-                Toast.makeText(context, "Please Fill all correct data", Toast.LENGTH_SHORT).show()
-            }
-
-
-//            val nameText = name.text.toString()
-//            val ageText = age.text.toString()
-//            val heightText = height.text.toString()
-//            val weightText = weight.text.toString()
-//
-//            //validate user input
-//            if (nameText.isEmpty() || ageText.isEmpty() || heightText.isEmpty() || weightText.isEmpty()) {
-//                //if any of the fields are empty, display error message
-//                name.error = "Please enter your name"
-//                age.error = "Please enter your age"
-//                height.error = "Please enter your height"
-//                weight.error = "Please enter your weight"
-//            } else {
-                //if all fields are filled, save to file
-
-//                val file = File(filesDir, "user.txt")
-//                file.writeText("$nameText,$ageText,$heightText,$weightText")
-
-
-            }
-
-
-
-                //go to targetActivity
-
-            } //end of targetButton
 
 
         }
+
+
+        //go to targetActivity
+
+    } //end of targetButton
+
+
+
+} //end of onCreate
 
 
