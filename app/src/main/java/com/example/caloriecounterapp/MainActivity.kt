@@ -3,6 +3,7 @@ package com.example.caloriecounterapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 
 
@@ -22,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         val weight = findViewById<EditText>(R.id.editWeight)
         val gender = findViewById<EditText>(R.id.editGender)
 
+        val sharedPref = getSharedPreferences("myPref", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.clear()
+        editor.apply()
 
 
 
@@ -65,6 +70,9 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+
+        //fun to delete shared preferences infomation
+
 
 
         //go to targetActivity

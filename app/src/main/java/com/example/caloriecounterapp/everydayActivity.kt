@@ -225,6 +225,7 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         }
         val caloriesResult = findViewById<TextView>(R.id.txtRemainingCalories)
         caloriesResult.text = "Remaining Calories: " + ((totalCalories - loadData().toInt()) * 0.04).toInt().toString()
+        TODO("Ramianing Calories should be Goal calories - total calories")
     }
 //goal calories calculation
     fun calculateGoalCalories() {
