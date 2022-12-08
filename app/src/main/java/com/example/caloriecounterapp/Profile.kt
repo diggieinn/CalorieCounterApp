@@ -38,9 +38,6 @@ class Profile : AppCompatActivity() {
         gender.text =  "Gender: "+ user.get(lastOne).gender.uppercase()
         goal.text = "Goal: "+  user.get(lastOne).weightLossTarget.toString()
 
-
-
-
         //navigation drawer
         // Display the hamburger icon to launch the drawer
 

@@ -13,13 +13,24 @@ private val TABLE_NAME = "meals"
 private val COL_MEALENAME = "mealName"
 private val COL_CALORIES = "calories"
 private val COL_ID = "id"
+private val COL_PROTEIN = "protein"
+private val COL_CARBS = "carbs"
+private val COL_FAT = "fat"
+private val COL_DATE = "date"
+
 
 class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
         val createTable = "CREATE TABLE " + TABLE_NAME + " (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_MEALENAME + " VARCHAR(256)," +
-                COL_CALORIES + " INTEGER)"
+                COL_CALORIES + " INTEGER," +
+                COL_PROTEIN + " INTEGER," +
+                COL_CARBS + " INTEGER," +
+                COL_FAT + " INTEGER," +
+                COL_DATE + " VARCHAR(256))"
+
+
         db?.execSQL(createTable)
     }
 
@@ -33,6 +44,10 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
         val cv = ContentValues()
         cv.put(COL_MEALENAME, meal.name)
         cv.put(COL_CALORIES, meal.calories)
+        cv.put(COL_PROTEIN, meal.protein)
+        cv.put(COL_CARBS, meal.carbs)
+        cv.put(COL_FAT, meal.fat)
+        cv.put(COL_DATE, meal.date)
         val result = db.insert(TABLE_NAME, null, cv)
         if (result == -1.toLong())
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -54,6 +69,10 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
               meal.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
               meal.name = result.getString(result.getColumnIndex(COL_MEALENAME))
               meal.calories = result.getString(result.getColumnIndex(COL_CALORIES)).toInt()
+              meal.protein = result.getString(result.getColumnIndex(COL_PROTEIN)).toInt()
+              meal.carbs = result.getString(result.getColumnIndex(COL_CARBS)).toInt()
+              meal.fat = result.getString(result.getColumnIndex(COL_FAT)).toInt()
+              meal.date = result.getString(result.getColumnIndex(COL_DATE))
 
 
               list.add(meal)

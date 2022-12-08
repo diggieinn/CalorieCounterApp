@@ -1,6 +1,7 @@
 package com.example.caloriecounterapp
 
 import android.Manifest
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -21,10 +22,14 @@ import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import android.view.MenuItem
+import android.view.View
+import android.widget.DatePicker
 import androidx.core.view.GravityCompat
 import com.example.caloriecounterapp.R
 
 import kotlinx.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class everydayActivity : AppCompatActivity(), SensorEventListener {
@@ -38,7 +43,9 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var actionBarToggle: ActionBarDrawerToggle
     private lateinit var navView: NavigationView
 
-
+    var button_date : Button? = null
+    var text_date : TextView? = null
+    var cal = Calendar.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +71,34 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         val editFood = findViewById<TextView>(R.id.editFood)
         val editCalories = findViewById<TextView>(R.id.editCalories)
         val btnNewDay = findViewById<Button>(R.id.btnNewDay)
+
+        text_date = findViewById(R.id.textViewDate)
+        button_date = findViewById(R.id.btnChangeDate)
+
+        text_date!!.text = "--/--/----"
+
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDate()
+            }
+        }
+
+        button_date!!.setOnClickListener (
+            object : View.OnClickListener {
+              override  fun onClick(view: View) {
+                    DatePickerDialog(this@everydayActivity,
+                        dateSetListener,
+                        // set DatePickerDialog to point to today's date when it loads up
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH)).show(
+                )
+            }
+        })
 
 
         //navigation drawer
@@ -225,7 +260,7 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         }
         val caloriesResult = findViewById<TextView>(R.id.txtRemainingCalories)
         caloriesResult.text = "Remaining Calories: " + ((totalCalories - loadData().toInt()) * 0.04).toInt().toString()
-        TODO("Ramianing Calories should be Goal calories - total calories")
+        //("Ramianing Calories should be Goal calories - total calories")
     }
 //goal calories calculation
     fun calculateGoalCalories() {
@@ -258,6 +293,14 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         } else {
             super.onBackPressed()
         }
+    }
+
+    // date method
+
+    fun updateDate() {
+        val myFormat = "MM/dd/yyyy" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        text_date!!.text = sdf.format(cal.getTime())
     }
 
 }
