@@ -20,7 +20,7 @@ class targetActivity : AppCompatActivity() {
         val gender = intent.getStringExtra("gender")
         Toast.makeText(
             this,
-            "Name: $name, Age: $age, Height: $height, Weight: $weight",
+            "Name: $name, Age: $age, Height: $height, Gender: $gender, Weight: $weight",
             Toast.LENGTH_LONG
         ).show()
 

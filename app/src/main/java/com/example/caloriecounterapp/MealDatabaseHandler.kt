@@ -17,6 +17,7 @@ private val COL_PROTEIN = "protein"
 private val COL_CARBS = "carbs"
 private val COL_FAT = "fat"
 private val COL_DATE = "date"
+private val COL_CATEGORY = "category"
 
 
 class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
@@ -28,7 +29,8 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
                 COL_PROTEIN + " INTEGER," +
                 COL_CARBS + " INTEGER," +
                 COL_FAT + " INTEGER," +
-                COL_DATE + " VARCHAR(256))"
+                COL_DATE + " VARCHAR(256)," +
+                COL_CATEGORY + " VARCHAR(256))"
 
 
         db?.execSQL(createTable)
@@ -48,6 +50,7 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
         cv.put(COL_CARBS, meal.carbs)
         cv.put(COL_FAT, meal.fat)
         cv.put(COL_DATE, meal.date)
+        cv.put(COL_CATEGORY, meal.category)
         val result = db.insert(TABLE_NAME, null, cv)
         if (result == -1.toLong())
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -73,6 +76,7 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
               meal.carbs = result.getString(result.getColumnIndex(COL_CARBS)).toInt()
               meal.fat = result.getString(result.getColumnIndex(COL_FAT)).toInt()
               meal.date = result.getString(result.getColumnIndex(COL_DATE))
+              meal.category = result.getString(result.getColumnIndex(COL_CATEGORY))
 
 
               list.add(meal)

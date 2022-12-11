@@ -70,12 +70,23 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
 
         val editFood = findViewById<TextView>(R.id.editFood)
         val editCalories = findViewById<TextView>(R.id.editCalories)
+        val editCategory = findViewById<TextView>(R.id.editCategory)
+        val editFat = findViewById<TextView>(R.id.editFat)
+        val editCarbs = findViewById<TextView>(R.id.editCarbs)
+        val editProtein = findViewById<TextView>(R.id.editProtein)
+
+
         val btnNewDay = findViewById<Button>(R.id.btnNewDay)
 
         text_date = findViewById(R.id.textViewDate)
         button_date = findViewById(R.id.btnChangeDate)
 
-        text_date!!.text = "--/--/----"
+        // variable to get the current date and send to string format mm/dd/yyyy
+
+       val day = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
+
+        text_date!!.text = day
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
@@ -122,6 +133,61 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         navView = findViewById(R.id.navView)
 
         // Call setNavigationItemSelectedListener on the NavigationView to detect when items are clicked
+        natview()
+
+
+        addMeal(
+            btnAddMeal,
+            editFood,
+            editCalories,
+            editFat,
+            editCarbs,
+            editProtein,
+            editCategory,
+            db
+        )
+
+
+
+        btnNewDay.setOnClickListener{
+            db.deleteAllData()
+            calculateCalories()
+            calculateCaloriesBurned()
+            resetSteps()
+        }
+
+    }
+
+    fun addMeal(
+        btnAddMeal: Button,
+        editFood: TextView,
+        editCalories: TextView,
+        editFat: TextView,
+        editCarbs: TextView,
+        editProtein: TextView,
+        editCategory: TextView,
+        db: MealDatabaseHandler
+    ) {
+        btnAddMeal.setOnClickListener() {
+            if (editFood.text.toString().length > 0 && editCalories.text.toString().length > 0) {
+                var meal = Meals(
+                    editFood.text.toString(),
+                    editCalories.text.toString().toInt(),
+                    editFat.text.toString().toInt(),
+                    editCarbs.text.toString().toInt(),
+                    editProtein.text.toString().toInt(),
+                    text_date!!.text.toString(),
+                    editCategory.text.toString()
+                )
+                db.insertMeal(meal)
+
+                calculateCalories()
+                calculateCaloriesBurned()
+            }
+        }
+    }
+
+    fun natview() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.person -> {
@@ -160,27 +226,6 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
                 }
             }
         }
-
-
-        btnAddMeal.setOnClickListener() {
-            if (editFood.text.toString().length > 0 && editCalories.text.toString().length > 0) {
-                var meal = Meals(editFood.text.toString(), editCalories.text.toString().toInt())
-                db.insertMeal(meal)
-
-                calculateCalories()
-                calculateCaloriesBurned()
-            }
-        }
-
-
-
-        btnNewDay.setOnClickListener{
-            db.deleteAllData()
-            calculateCalories()
-            calculateCaloriesBurned()
-            resetSteps()
-        }
-
     }
 
     override fun onResume() {
@@ -298,7 +343,7 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
     // date method
 
     fun updateDate() {
-        val myFormat = "MM/dd/yyyy" // mention the format you need
+        val myFormat = "dd/MM/yyyy" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         text_date!!.text = sdf.format(cal.getTime())
     }

@@ -21,7 +21,12 @@ class MainActivity : AppCompatActivity() {
         val age = findViewById<EditText>(R.id.editAge)
         val height = findViewById<EditText>(R.id.editHeight)
         val weight = findViewById<EditText>(R.id.editWeight)
-        val gender = findViewById<EditText>(R.id.editGender)
+
+        val radioGruop = findViewById<RadioGroup>(R.id.radioGroup)
+        val radioMale = findViewById<RadioButton>(R.id.radioMale)
+        val radioFemale = findViewById<RadioButton>(R.id.radioFemale)
+
+
 
         val sharedPref = getSharedPreferences("myPref", MODE_PRIVATE)
         val editor = sharedPref.edit()
@@ -35,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         targetButton.setOnClickListener {
 
 
-            if (name.text.toString().length > 0 && age.text.toString().length > 0 && height.text.toString().length > 0 && weight.text.toString().length > 0 && (gender.text.toString().length > 0 || gender.text.toString().length < 2)) {
+            if (name.text.toString().length > 0 && (age.text.toString().length > 0 || age.text.toString().toInt() < 120) && height.text.toString().length > 0 && weight.text.toString().length > 0  ) {
 
 
                 //    constructor(name : String, age : Int, height : Int, weight : Int, gender : String, targetWeight : Int, weightLossTarget : Int){
@@ -44,9 +49,10 @@ class MainActivity : AppCompatActivity() {
                 val ageIn = age.text.toString().toInt()
                 val heightIn = height.text.toString().toInt()
                 val weightIn = weight.text.toString().toInt()
-                val genderIn = gender.text.toString()
 
-
+                var id: Int = radioGruop.checkedRadioButtonId
+                val radio:RadioButton = findViewById(id)
+                val genderIn = radio.text.toString()
 
 
 
@@ -79,6 +85,10 @@ class MainActivity : AppCompatActivity() {
 
     } //end of targetButton
 
+    fun radio_button_click(view: View) {
+        val radio: RadioButton = findViewById(view.id)
+        Toast.makeText(applicationContext, "On button click : ${radio.text}", Toast.LENGTH_SHORT).show()
+    }
 
 
 } //end of onCreate

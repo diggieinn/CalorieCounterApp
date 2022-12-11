@@ -3,39 +3,40 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawerLayout"
-    tools:context=".everydayActivity">
+    tools:context=".everydayActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editFat"
+        app:layout_constraintTop_toTopOf="@+id/editFat"
         tools:context=".everydayActivity">
+
+        <!-- text view for the date -->
 
         <ImageView
             android:id="@+id/logoView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp"
+
+            android:layout_marginTop="15dp"
             android:src="@drawable/placeholder"
-            app:layout_constraintBottom_toTopOf="@+id/textViewDate"
-            app:layout_constraintEnd_toStartOf="@+id/textViewDate"
-            app:layout_constraintStart_toStartOf="@+id/textViewDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- text view for the date -->
+
         <TextView
             android:id="@+id/textViewDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="19dp"
-            android:textColor="#000000"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/purple_200"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/btnChangeDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logoView" />
@@ -44,181 +45,207 @@
             android:id="@+id/btnChangeDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="21dp"
+            android:layout_marginTop="8dp"
+
             android:text="Change Date"
-            app:layout_constraintBottom_toTopOf="@+id/editFood"
-            app:layout_constraintEnd_toStartOf="@+id/textViewDate"
-            app:layout_constraintStart_toStartOf="@+id/textViewDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
 
         <EditText
-            android:id="@+id/editFood"
-            android:layout_width="400dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="297dp"
-            android:layout_marginBottom="120dp"
-            android:ems="10"
-            android:hint="Food Description"
-            android:inputType="number"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/editFat"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
             android:id="@+id/editCalories"
-            android:layout_width="134dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:hint="Calories"
             android:inputType="number"
-            android:textColor="#000000"
+            android:textColor="@color/purple_200"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/editCategory"
+            app:layout_constraintEnd_toStartOf="@+id/editFat"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editFood" />
-
-        <EditText
-            android:id="@+id/editCategory"
-            android:layout_width="134dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
-            android:hint="Category"
-            android:inputType="number"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/editCalories"
-            app:layout_constraintTop_toBottomOf="@+id/editFood" />
+            app:layout_constraintTop_toBottomOf="@+id/btnChangeDate" />
 
         <EditText
             android:id="@+id/editFat"
-            android:layout_width="126dp"
-            android:layout_height="75dp"
-            android:layout_marginBottom="259dp"
-            android:ems="10"
+
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:hint="Fat"
             android:inputType="number"
-            android:textColor="#000000"
+
+            android:minWidth="48dp"
+            android:textColor="@color/purple_200"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/editCarbs"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editFood" />
+            app:layout_constraintStart_toEndOf="@+id/editCalories"
+            app:layout_constraintTop_toBottomOf="@+id/btnChangeDate" />
 
-        <EditText
-            android:id="@+id/editCarbs"
-            android:layout_width="134dp"
-            android:layout_height="75dp"
-            android:ems="10"
-            android:hint="Carbs"
-            android:inputType="number"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/editProtein"
-            app:layout_constraintEnd_toStartOf="@+id/editProtein"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/editFat" />
 
         <EditText
             android:id="@+id/editProtein"
-            android:layout_width="134dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="476dp"
-            android:layout_marginBottom="16dp"
-            android:ems="10"
+
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
             android:hint="Protein"
             android:inputType="number"
-            android:textColor="#000000"
+            android:textColor="@color/purple_200"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/btnNewDay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/editCarbs"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/btnChangeDate" />
+
+        <EditText
+            android:id="@+id/editCarbs"
+
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Carbs"
+
+            android:inputType="number"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/editProtein"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/editFat"
+            app:layout_constraintTop_toBottomOf="@+id/btnChangeDate" />
+
+        <EditText
+            android:id="@+id/editFood"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:hint="Food Description"
+            android:inputType="textPersonName"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editProtein" />
+
+
+        <EditText
+            android:id="@+id/editCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Category"
+
+            android:inputType="textPersonName"
+            android:textColor="@color/purple_200"
+            android:textSize="20sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editFood"
+
+
+            />
 
         <Button
             android:id="@+id/btnAddMeal"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:text="Add Meal"
-            app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintEnd_toStartOf="@+id/btnNewDay"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editProtein" />
+            app:layout_constraintTop_toBottomOf="@+id/editCategory" />
+
+        <Button
+            android:id="@+id/btnNewDay"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="New Day"
+
+            app:layout_constraintEnd_toEndOf="parent"
+
+
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnAddMeal"
+            app:layout_constraintTop_toBottomOf="@+id/editCategory" />
 
         <TextView
             android:id="@+id/steps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:text="Steps:"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnAddMeal" />
-
-        <TextView
-            android:id="@+id/tv_stepsTaken"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="0"
             android:textColor="@color/purple_200"
-            android:textSize="37sp"
+
+            android:textSize="20sp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/steps" />
+            app:layout_constraintTop_toBottomOf="@+id/btnNewDay" />
 
-        <TextView
-            android:id="@+id/txtGoalCalories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Goal Calories:"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_stepsTaken" />
+                <TextView
+                    android:id="@+id/tv_stepsTaken"
+                    android:text="0"
+                    android:textColor="@color/purple_200"
+                    android:textSize="37sp"
 
-        <TextView
-            android:id="@+id/txtTotalCalories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Total Calories:"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtGoalCalories" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-        <TextView
-            android:id="@+id/txtRemainingCalories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Remaining Calories:"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTotalCalories" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/steps"
+           />
 
-        <Button
-            android:id="@+id/btnNewDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="195dp"
-            android:text="New Day"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnAddMeal"
-            app:layout_constraintTop_toBottomOf="@+id/editProtein" />
+                <TextView
+                    android:id="@+id/txtGoalCalories"
+                    android:text="Goal Calories:"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_stepsTaken"
+                    android:textColor="@color/purple_200"
+            />
+
+                <TextView
+                    android:id="@+id/txtTotalCalories"
+                    android:text="Total Calories:"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtGoalCalories"
+                    android:textColor="@color/purple_200"
+                    />
+
+                <TextView
+                    android:id="@+id/txtRemainingCalories"
+                    android:text="Remaining Calories:"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTotalCalories"
+                    android:textColor="@color/purple_200"
+
+
+        />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -227,10 +254,10 @@
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/nav_menu"
-        app:headerLayout="@layout/nav_header"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"/>
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
