@@ -14,6 +14,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val db = DatabaseHandler(this)
+        //if user exists in database, go to everydayActivity
+        //if user does not exist in database keep going.
+        if (db.checkUserExists()) {
+            val intent = Intent(this, everydayActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
 
         //get information from user and save in txt file of id editTextTextPersonName
@@ -23,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         val weight = findViewById<EditText>(R.id.editWeight)
 
         val radioGruop = findViewById<RadioGroup>(R.id.radioGroup)
-        val radioMale = findViewById<RadioButton>(R.id.radioMale)
-        val radioFemale = findViewById<RadioButton>(R.id.radioFemale)
+        val radioMale = findViewById<RadioButton>(R.id.radioMale) // not used
+        val radioFemale = findViewById<RadioButton>(R.id.radioFemale) //not used
 
 
 

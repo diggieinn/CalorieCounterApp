@@ -21,6 +21,7 @@
             android:gravity="center_horizontal"
             android:text="Profile Information"
             android:textSize="50sp"
+          android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +42,7 @@
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="User Name: "
             android:textSize="20sp"
             android:textAlignment="center"
@@ -54,7 +55,7 @@
             android:id="@+id/userAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="User Age: "
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +66,7 @@
             android:id="@+id/userWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="User Weight: "
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +77,7 @@
             android:id="@+id/userHeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="User Height: "
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +88,7 @@
             android:id="@+id/userGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="Gender: "
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -98,13 +99,32 @@
             android:id="@+id/weightLossTarget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="Weight Loss Target: "
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userGender" />
 
+        <Button
+            android:id="@+id/buttonDeleteAllData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="140dp"
+            android:text="Delete User and All Data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weightLossTarget"  />
+        <TextView
+            android:id="@+id/textDeleteAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="*This will delete all data associated with this user and go back to the welcome screen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonDeleteAllData"
+            ></TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

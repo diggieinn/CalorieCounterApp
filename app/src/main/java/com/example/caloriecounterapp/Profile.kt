@@ -97,6 +97,20 @@ class Profile : AppCompatActivity() {
                 }
             }
         }
+        val buttonDelete = findViewById<TextView>(R.id.buttonDeleteAllData)
+        buttonDelete.setOnClickListener {
+            var db = DatabaseHandler(this)
+            var db2 = MealDatabaseHandler(this)
+            db.deleteAllData()
+            db2.deleteAllData()
+            Toast.makeText(this, "All data deleted", Toast.LENGTH_SHORT).show()
+            Intent(this, MainActivity::class.java).also {
+                startActivity(it)
+            }
+
+        }
+
+
 
 
 
@@ -109,6 +123,10 @@ class Profile : AppCompatActivity() {
 
 
     }
+
+
+
+
 
 
     //nav view methods

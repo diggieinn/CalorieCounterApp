@@ -120,6 +120,14 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         db.close()
     }
 
+    // Check if user exists
+    fun checkUserExists(): Boolean {
+        val db = this.readableDatabase
+        val query = "Select * from " + TABLE_NAME + " where " + COL_ID + " = 1"
+        val result = db.rawQuery(query, null)
+
+        return result.moveToFirst()
+    }
 }
 
 

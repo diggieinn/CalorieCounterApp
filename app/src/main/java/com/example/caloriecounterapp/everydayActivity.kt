@@ -54,6 +54,7 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
 
 
 
+
         loadData()
         calculateCalories()
         calculateCaloriesBurned()
