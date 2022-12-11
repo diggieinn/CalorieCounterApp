@@ -19,7 +19,7 @@ class Meals {
         this.carbs = carbs
         this.fat = fat
         this.date = date
-        this.date = category
+        this.category = category
     }
 
 

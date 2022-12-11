@@ -94,4 +94,33 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
         db.delete(TABLE_NAME, null, null)
         db.close()
     }
+
+    //return data that contains given Data dd/MM/yyyy
+    @SuppressLint("Range")
+    fun readDataByDate(date: String): MutableList<Meals> {
+        val list: MutableList<Meals> = ArrayList()
+
+        val db = this.readableDatabase
+        val query = "Select * from " + TABLE_NAME + " WHERE " + COL_DATE + " = '" + date + "'"
+        val result = db.rawQuery(query, null)
+
+        if (result.moveToFirst()) {
+            do {
+                val meal = Meals()
+                meal.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
+                meal.name = result.getString(result.getColumnIndex(COL_MEALENAME))
+                meal.calories = result.getString(result.getColumnIndex(COL_CALORIES)).toInt()
+                meal.protein = result.getString(result.getColumnIndex(COL_PROTEIN)).toInt()
+                meal.carbs = result.getString(result.getColumnIndex(COL_CARBS)).toInt()
+                meal.fat = result.getString(result.getColumnIndex(COL_FAT)).toInt()
+                meal.date = result.getString(result.getColumnIndex(COL_DATE))
+                meal.category = result.getString(result.getColumnIndex(COL_CATEGORY))
+
+                list.add(meal)
+            } while (result.moveToNext())
+        }
+        result.close()
+        db.close()
+        return list
+    }
 }

@@ -19,10 +19,9 @@ class MainActivity : AppCompatActivity() {
         //if user does not exist in database keep going.
         if (db.checkUserExists()) {
             val intent = Intent(this, everydayActivity::class.java)
+
             startActivity(intent)
         }
-
-
 
 
         //get information from user and save in txt file of id editTextTextPersonName
@@ -36,12 +35,10 @@ class MainActivity : AppCompatActivity() {
         val radioFemale = findViewById<RadioButton>(R.id.radioFemale) //not used
 
 
-
         val sharedPref = getSharedPreferences("myPref", MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.clear()
         editor.apply()
-
 
 
         //button to go to targetActivity
@@ -49,7 +46,9 @@ class MainActivity : AppCompatActivity() {
         targetButton.setOnClickListener {
 
 
-            if (name.text.toString().length > 0 && (age.text.toString().length > 0 || age.text.toString().toInt() < 120) && height.text.toString().length > 0 && weight.text.toString().length > 0  ) {
+            if (name.text.toString().length > 0 && (age.text.toString().length > 0 || age.text.toString()
+                    .toInt() < 120) && height.text.toString().length > 0 && weight.text.toString().length > 0
+            ) {
 
 
                 //    constructor(name : String, age : Int, height : Int, weight : Int, gender : String, targetWeight : Int, weightLossTarget : Int){
@@ -60,11 +59,8 @@ class MainActivity : AppCompatActivity() {
                 val weightIn = weight.text.toString().toInt()
 
                 var id: Int = radioGruop.checkedRadioButtonId
-                val radio:RadioButton = findViewById(id)
+                val radio: RadioButton = findViewById(id)
                 val genderIn = radio.text.toString()
-
-
-
 
 
                 val intent = Intent(this, targetActivity::class.java)
@@ -89,14 +85,14 @@ class MainActivity : AppCompatActivity() {
         //fun to delete shared preferences infomation
 
 
-
         //go to targetActivity
 
     } //end of targetButton
 
     fun radio_button_click(view: View) {
         val radio: RadioButton = findViewById(view.id)
-        Toast.makeText(applicationContext, "On button click : ${radio.text}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "On button click : ${radio.text}", Toast.LENGTH_SHORT)
+            .show()
     }
 
 

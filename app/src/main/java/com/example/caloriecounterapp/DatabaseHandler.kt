@@ -128,6 +128,9 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
 
         return result.moveToFirst()
     }
+
+
+
 }
 
 

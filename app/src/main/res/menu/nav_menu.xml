@@ -17,8 +17,9 @@
         android:title="Info" />
 
     <item
-        android:id="@+id/nav_settings"
-        android:title="TODO" />
+        android:id="@+id/menu_graph"
+        android:icon="@drawable/ic_baseline_pie_chart_24"
+        android:title="Nutrition Info Graph" />
 
 
 </menu>

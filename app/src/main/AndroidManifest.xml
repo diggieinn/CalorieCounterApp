@@ -15,6 +15,13 @@
         android:theme="@style/Theme.CalorieCounterApp"
         tools:targetApi="31">
         <activity
+            android:name=".GraphActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MealList"
             android:exported="false"
             android:label="@string/title_activity_meal_list"

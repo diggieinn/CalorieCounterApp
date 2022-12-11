@@ -80,6 +80,15 @@ class MealList : AppCompatActivity() {
                     Toast.makeText(this, "Info", Toast.LENGTH_SHORT).show()
                     true
                 }
+                R.id.menu_graph -> {
+
+                    Intent(this, GraphActivity::class.java).also {
+                        startActivity(it)
+                    }
+
+                    Toast.makeText(this, "Menu Graph", Toast.LENGTH_SHORT).show()
+                    true
+                }
                 else -> {
                     false
                 }
