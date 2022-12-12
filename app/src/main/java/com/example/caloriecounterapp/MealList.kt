@@ -99,12 +99,23 @@ class MealList : AppCompatActivity() {
         btnShowMeals.setOnClickListener {
             val data = db.readData()
             val mealsResult = findViewById<TextView>(R.id.mealsResult)
+
+
             mealsResult.text = ""
             for (i in 0 until data.size) {
+                if(data.get(i).category == "Water"){
+                    continue;
+                }
+
                 mealsResult.append(
-                    "Name of the meal :" + data.get(i).name + " Calories: " + data.get(
-                        i
-                    ).calories + "\n"
+
+                            "Name: " + data.get(i).name + "" +
+                            "Calories: " + data.get(i).calories + " " +
+                            "Protein: " + data.get(i).protein + "  " +
+                            "Carbs: " + data.get(i).carbs + " " +
+                            "Fat: " + data.get(i).fat + " " +
+                            "Date: " + data.get(i).date + " " +
+                            "Category: " + data.get(i).category + " | "
                 )
 
 

@@ -89,7 +89,7 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
 
         // variable to get the current date and send to string format mm/dd/yyyy
 
-       val day = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+       var day = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
 
         text_date!!.text = day
@@ -117,7 +117,7 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
             }
         })
 
-
+        day = text_date!!.text.toString()
         //navigation drawer
         // Display the hamburger icon to launch the drawer
 
@@ -155,8 +155,8 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         )
 
         buttonCupOfWater.setOnClickListener {
-
-            var water = db.readDataByDate(text_date!!.text.toString())
+            var showDay = text_date!!.text.toString()
+            var water = db.readDataByDate(showDay)
             //get all the water from the database where category is water
             var totalWater = 0
             for (i in water) {
@@ -166,7 +166,11 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
             }
 
 
-            var meal = Meals("Water", 0, 0, 0, 0, day, "Water",1)
+            Toast.makeText(this, "You have drank $totalWater cups of $showDay", Toast.LENGTH_SHORT).show()
+
+            Log.d("Water", "You have drank $totalWater cups of $showDay")
+
+            var meal = Meals("Water", 0, 0, 0, 0, showDay, "Water",1)
             db.insertMeal(meal)
 
             editCupOfWater.text = "Cup of water: "+ totalWater.toString()
@@ -182,6 +186,8 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
             calculateCaloriesBurned()
             resetSteps()
         }
+
+
 
     }
 
@@ -206,10 +212,22 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
                     editProtein.text.toString().toInt(),
                     text_date!!.text.toString(),
                     editCategory.text.toString(),
-                    editCupOfWater.text.toString().toInt()
+                    0
                 )
                 db.insertMeal(meal)
 
+                //Toast with all food information added to database
+                Toast.makeText(
+                    this,
+                    "Food: " + editFood.text.toString() + " " +
+                            "Calories: " + editCalories.text.toString() + " " +
+                            "Fat: " + editFat.text.toString() + " " +
+                            "Carbs: " + editCarbs.text.toString() + " " +
+                            "Protein: " + editProtein.text.toString() + " " +
+                            "Category: " + editCategory.text.toString() + " " +
+                            "Date: " + text_date!!.text.toString(),
+                    Toast.LENGTH_LONG
+                ).show()
                 calculateCalories()
                 calculateCaloriesBurned()
             }
