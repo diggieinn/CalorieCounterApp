@@ -246,6 +246,30 @@
 
 
         />
+                <!-- text view for cup of water drunk on the day -->
+
+                <TextView
+                    android:id="@+id/editCupOfWater"
+                    android:text="Cup of Water:"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRemainingCalories"
+                    android:textColor="@color/purple_200"
+                    />
+
+        <Button
+            android:id="@+id/buttonCupOfWater"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="+1 Cup of Water"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editCupOfWater" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

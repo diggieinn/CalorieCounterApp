@@ -18,6 +18,7 @@ private val COL_ID = "id"
 private val COL_TARGET_WEIGHT = "targetWeight"
 private val COL_WEIGHT_LOSS_TARGET = "weightLossTarget"
 private val COL_GENDER = "gender"
+private val COL_CALORIES_TARGET = "caloriesTarget"
 
 
 
@@ -36,7 +37,8 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                 COL_WEIGHT + " INTEGER," +
                 COL_TARGET_WEIGHT + " INTEGER," +
                 COL_WEIGHT_LOSS_TARGET + " INTEGER," +
-                COL_GENDER + " VARCHAR(256) )"
+                COL_GENDER + " VARCHAR(256)," +
+                COL_CALORIES_TARGET + " INTEGER );"
 
 
 
@@ -58,6 +60,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         cv.put(COL_TARGET_WEIGHT, user.targetWeight)
         cv.put(COL_WEIGHT_LOSS_TARGET, user.weightLossTarget)
         cv.put(COL_GENDER, user.gender)
+        cv.put(COL_CALORIES_TARGET, user.caloriesTarget)
 
         val result = db.insert(TABLE_NAME, null, cv)
         if (result == -1.toLong())
@@ -87,6 +90,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                 user.targetWeight = result.getString(result.getColumnIndex(COL_TARGET_WEIGHT)).toInt()
                 user.weightLossTarget = result.getString(result.getColumnIndex(COL_WEIGHT_LOSS_TARGET)).toInt()
                 user.gender = result.getString(result.getColumnIndex(COL_GENDER))
+                user.caloriesTarget = result.getString(result.getColumnIndex(COL_CALORIES_TARGET)).toInt()
 
 
                 list.add(user)
@@ -123,9 +127,9 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
     // Check if user exists
     fun checkUserExists(): Boolean {
         val db = this.readableDatabase
-        val query = "Select * from " + TABLE_NAME + " where " + COL_ID + " = 1"
+        // query to check if user exists
+        val query = "SELECT * FROM " + TABLE_NAME
         val result = db.rawQuery(query, null)
-
         return result.moveToFirst()
     }
 

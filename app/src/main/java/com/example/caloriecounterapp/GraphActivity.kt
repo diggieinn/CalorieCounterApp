@@ -24,6 +24,11 @@ class GraphActivity : AppCompatActivity() {
     var FatProgressBar : ProgressBar? = null
     var CaloriesProgressBar : ProgressBar? = null
 
+    var CarbsTextView : TextView? = null
+    var ProteinTextView : TextView? = null
+    var FatTextView : TextView? = null
+    var CaloriesTextView : TextView? = null
+
 
 
 
@@ -36,6 +41,12 @@ class GraphActivity : AppCompatActivity() {
         FatProgressBar = findViewById<ProgressBar>(R.id.FatProgressBar)
         CaloriesProgressBar = findViewById<ProgressBar>(R.id.CaloriesProgressBar)
         btnUpdate = findViewById<Button>(R.id.btnUpdateData)
+
+        CarbsTextView = findViewById<TextView>(R.id.idTextCarbsGraph)
+        ProteinTextView = findViewById<TextView>(R.id.idTextProteinGraph)
+        FatTextView = findViewById<TextView>(R.id.idTextFatGraph)
+        CaloriesTextView = findViewById<TextView>(R.id.idTextCaloriesGraph)
+
 
 
         var db = MealDatabaseHandler(this)
@@ -94,6 +105,15 @@ class GraphActivity : AppCompatActivity() {
                     }
                     // a toast to show the data that was updated
                     Toast.makeText(this@GraphActivity, "Carbs: $carbs, Protein: $protein, Fat: $fat, Calories: $calories", Toast.LENGTH_LONG).show()
+
+                    // set text to the textviews as percentages of calories
+                    CarbsTextView!!.text = ((carbs * 100)/(calories/0.45)).toString() + "%"
+                    ProteinTextView!!.text = ((protein * 100)/(calories/0.45)).toString() + "%"
+                    FatTextView!!.text = ((fat * 100)/(calories/0.45)).toString() + "%"
+                    CaloriesTextView!!.text = calories.toString() + "kcal"
+                    
+
+
                     CarbsProgressBar!!.progress = carbs
                     ProteinProgressBar!!.progress = protein
                     FatProgressBar!!.progress = fat

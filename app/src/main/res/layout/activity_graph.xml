@@ -54,6 +54,7 @@
         />
 
     <TextView
+        android:id="@+id/idTextCaloriesGraph"
         android:layout_width="7dp"
         android:layout_height="0dp"
         android:layout_alignLeft="@id/CaloriesProgressBar"
@@ -101,6 +102,23 @@
         app:layout_constraintStart_toEndOf="@+id/textFatGraph"
         app:layout_constraintTop_toBottomOf="@+id/CaloriesProgressBar" />
 
+
+    <TextView
+        android:id="@+id/idTextFatGraph"
+        android:layout_width="7dp"
+        android:layout_height="0dp"
+        android:layout_alignLeft="@id/FatProgressBar"
+        android:layout_alignTop="@id/FatProgressBar"
+        android:layout_alignRight="@id/FatProgressBar"
+        android:layout_alignBottom="@id/FatProgressBar"
+        android:layout_marginTop="-5dp"
+        android:background="#00000000"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@+id/FatProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/FatProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/FatProgressBar" />
+
+
     <TextView
         android:id="@+id/textProteinGraph"
         android:layout_width="100dp"
@@ -125,6 +143,22 @@
         app:layout_constraintStart_toEndOf="@+id/textProteinGraph"
         app:layout_constraintTop_toBottomOf="@+id/FatProgressBar" />
 
+
+    <TextView
+        android:id="@+id/idTextProteinGraph"
+        android:layout_width="7dp"
+        android:layout_height="0dp"
+        android:layout_alignLeft="@id/ProteinProgressBar"
+        android:layout_alignTop="@id/ProteinProgressBar"
+        android:layout_alignRight="@id/ProteinProgressBar"
+        android:layout_alignBottom="@id/ProteinProgressBar"
+        android:layout_marginTop="-5dp"
+        android:background="#00000000"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@+id/ProteinProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/ProteinProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/ProteinProgressBar" />
+
     <TextView
         android:id="@+id/textCarbsGraph"
         android:layout_width="100dp"
@@ -148,6 +182,23 @@
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toEndOf="@+id/textCarbsGraph"
         app:layout_constraintTop_toBottomOf="@+id/ProteinProgressBar" />
+
+
+    <TextView
+        android:id="@+id/idTextCarbsGraph"
+        android:layout_width="7dp"
+        android:layout_height="0dp"
+        android:layout_alignLeft="@id/CarbsProgressBar"
+        android:layout_alignTop="@id/CarbsProgressBar"
+        android:layout_alignRight="@id/CarbsProgressBar"
+        android:layout_alignBottom="@id/CarbsProgressBar"
+        android:layout_marginTop="-5dp"
+        android:background="#00000000"
+        android:text="0"
+        app:layout_constraintEnd_toEndOf="@+id/CarbsProgressBar"
+        app:layout_constraintStart_toStartOf="@+id/CarbsProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/CarbsProgressBar" />
+
 
     <Button
         android:id="@+id/btnUpdateData"

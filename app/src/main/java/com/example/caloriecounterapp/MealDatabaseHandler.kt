@@ -18,6 +18,7 @@ private val COL_CARBS = "carbs"
 private val COL_FAT = "fat"
 private val COL_DATE = "date"
 private val COL_CATEGORY = "category"
+private val COL_CUPOFWATER = "cupOfwater"
 
 
 class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
@@ -30,7 +31,8 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
                 COL_CARBS + " INTEGER," +
                 COL_FAT + " INTEGER," +
                 COL_DATE + " VARCHAR(256)," +
-                COL_CATEGORY + " VARCHAR(256))"
+                COL_CATEGORY + " VARCHAR(256)," +
+                COL_CUPOFWATER + " INTEGER );"
 
 
         db?.execSQL(createTable)
@@ -51,6 +53,7 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
         cv.put(COL_FAT, meal.fat)
         cv.put(COL_DATE, meal.date)
         cv.put(COL_CATEGORY, meal.category)
+        cv.put(COL_CUPOFWATER, meal.cupOfwater)
         val result = db.insert(TABLE_NAME, null, cv)
         if (result == -1.toLong())
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -77,6 +80,7 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
               meal.fat = result.getString(result.getColumnIndex(COL_FAT)).toInt()
               meal.date = result.getString(result.getColumnIndex(COL_DATE))
               meal.category = result.getString(result.getColumnIndex(COL_CATEGORY))
+              meal.cupOfwater = result.getString(result.getColumnIndex(COL_CUPOFWATER)).toInt()
 
 
               list.add(meal)
@@ -115,6 +119,7 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
                 meal.fat = result.getString(result.getColumnIndex(COL_FAT)).toInt()
                 meal.date = result.getString(result.getColumnIndex(COL_DATE))
                 meal.category = result.getString(result.getColumnIndex(COL_CATEGORY))
+                meal.cupOfwater = result.getString(result.getColumnIndex(COL_CUPOFWATER)).toInt()
 
                 list.add(meal)
             } while (result.moveToNext())

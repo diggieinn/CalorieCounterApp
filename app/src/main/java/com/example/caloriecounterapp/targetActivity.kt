@@ -38,6 +38,14 @@ class targetActivity : AppCompatActivity() {
 
                 val targetWeightIn = targetWeight.text.toString().toInt()
                 val weightLossTargetIn = weightLossTarget.text.toString().toInt()
+                var caloriesTarget = 0
+
+                if(gender.equals("M")){
+                    caloriesTarget = ((targetWeightIn * 10) + 6.25 * (height) - 5 * (age) + 5 as Int).toInt()
+                }
+                else{
+                    caloriesTarget = ((targetWeightIn * 10) + 6.25 * (height) - 5 * (age) - 161 as Int).toInt()
+                }
 
                 var user = User(
                     name.toString(),
@@ -46,7 +54,8 @@ class targetActivity : AppCompatActivity() {
                     weight,
                     gender.toString(),
                     targetWeightIn,
-                    weightLossTargetIn
+                    weightLossTargetIn,
+                    caloriesTarget
 
                 )
 

@@ -9,10 +9,11 @@ class Meals {
     var fat : Int = 0
     var date : String = ""
     var category : String = ""
+    var cupOfwater : Int = 0
 
 
 
-    constructor(name : String, calories : Int, protein : Int, carbs : Int, fat : Int, date : String, category : String){
+    constructor(name : String, calories : Int, protein : Int, carbs : Int, fat : Int, date : String, category : String, cupOfwater : Int){
         this.name = name
         this.calories = calories
         this.protein = protein
@@ -20,6 +21,7 @@ class Meals {
         this.fat = fat
         this.date = date
         this.category = category
+        this.cupOfwater = cupOfwater
     }
 
 

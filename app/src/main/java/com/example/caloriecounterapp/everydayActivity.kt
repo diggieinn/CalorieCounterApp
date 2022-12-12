@@ -75,9 +75,14 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         val editFat = findViewById<TextView>(R.id.editFat)
         val editCarbs = findViewById<TextView>(R.id.editCarbs)
         val editProtein = findViewById<TextView>(R.id.editProtein)
+        val editCupOfWater = findViewById<TextView>(R.id.editCupOfWater)
+
+        val buttonCupOfWater = findViewById<Button>(R.id.buttonCupOfWater)
 
 
         val btnNewDay = findViewById<Button>(R.id.btnNewDay)
+
+
 
         text_date = findViewById(R.id.textViewDate)
         button_date = findViewById(R.id.btnChangeDate)
@@ -145,8 +150,29 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
             editCarbs,
             editProtein,
             editCategory,
-            db
+            db,
+            editCupOfWater
         )
+
+        buttonCupOfWater.setOnClickListener {
+
+            var water = db.readDataByDate(text_date!!.text.toString())
+            //get all the water from the database where category is water
+            var totalWater = 0
+            for (i in water) {
+                if (i.category == "Water") {
+                    totalWater++
+                }
+            }
+
+
+            var meal = Meals("Water", 0, 0, 0, 0, day, "Water",1)
+            db.insertMeal(meal)
+
+            editCupOfWater.text = "Cup of water: "+ totalWater.toString()
+        }
+
+
 
 
 
@@ -167,7 +193,8 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         editCarbs: TextView,
         editProtein: TextView,
         editCategory: TextView,
-        db: MealDatabaseHandler
+        db: MealDatabaseHandler,
+        editCupOfWater: TextView
     ) {
         btnAddMeal.setOnClickListener() {
             if (editFood.text.toString().length > 0 && editCalories.text.toString().length > 0) {
@@ -178,7 +205,8 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
                     editCarbs.text.toString().toInt(),
                     editProtein.text.toString().toInt(),
                     text_date!!.text.toString(),
-                    editCategory.text.toString()
+                    editCategory.text.toString(),
+                    editCupOfWater.text.toString().toInt()
                 )
                 db.insertMeal(meal)
 
@@ -310,12 +338,16 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         var context = this
         var db = MealDatabaseHandler(context)
         val data = db.readData()
+
+        var dbUser = DatabaseHandler(context)
+        val userData = dbUser.readData()
+
         var totalCalories = 0
         for (i in 0 until data.size) {
             totalCalories += data.get(i).calories
         }
         val caloriesResult = findViewById<TextView>(R.id.txtRemainingCalories)
-        caloriesResult.text = "Remaining Calories: " + ((totalCalories - loadData().toInt()) * 0.04).toInt().toString()
+        caloriesResult.text = "Remaining Calories: " + (totalCalories - loadData() * 0.04.toInt() - userData.get(0).caloriesTarget).toString()
         //("Ramianing Calories should be Goal calories - total calories")
     }
 //goal calories calculation
@@ -329,7 +361,7 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
 
         // BMR if Male = (10 x weight in kg) + (6.25 x height in cm) - (5 x age in years) + 5
         val caloriesResult = findViewById<TextView>(R.id.txtGoalCalories)
-        caloriesResult.text = "Goal Calories: " + ((userData.get(0).weight * 10) + (userData.get(0).height * 6.25) - (userData.get(0).age * 5) + 5).toInt().toString()
+        caloriesResult.text = "Goal Calories: " + userData.get(0).caloriesTarget.toString()
 
 
     }
