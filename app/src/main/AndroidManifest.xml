@@ -24,8 +24,7 @@
         <activity
             android:name=".MealList"
             android:exported="false"
-            android:label="@string/title_activity_meal_list"
-            android:theme="@style/Theme.CalorieCounterApp.NoActionBar">
+           >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

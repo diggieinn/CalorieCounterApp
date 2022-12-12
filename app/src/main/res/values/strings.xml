@@ -21,5 +21,8 @@
 
     <string name="action_settings">Settings</string>
     <string name="select_date">select date</string>
+    <string name="food_name" />
+    <string name="food_info" />
+    <string name="food_date" />
 
 </resources>
