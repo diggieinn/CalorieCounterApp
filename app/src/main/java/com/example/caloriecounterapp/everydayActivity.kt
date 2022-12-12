@@ -52,12 +52,13 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_everyday)
 
-
+        text_date = findViewById(R.id.textViewDate)
+        button_date = findViewById(R.id.btnChangeDate)
 
 
         loadData()
-        calculateCalories()
-        calculateCaloriesBurned()
+        calculateCalories(text_date!!.text.toString())
+        calculateCaloriesBurned(text_date!!.text.toString())
         calculateGoalCalories()
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -84,8 +85,6 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
 
 
 
-        text_date = findViewById(R.id.textViewDate)
-        button_date = findViewById(R.id.btnChangeDate)
 
         // variable to get the current date and send to string format mm/dd/yyyy
 
@@ -112,8 +111,11 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
                         // set DatePickerDialog to point to today's date when it loads up
                         cal.get(Calendar.YEAR),
                         cal.get(Calendar.MONTH),
-                        cal.get(Calendar.DAY_OF_MONTH)).show(
-                )
+                        cal.get(Calendar.DAY_OF_MONTH)).show()
+
+                  calculateCalories(text_date!!.text.toString())
+                  calculateCaloriesBurned(text_date!!.text.toString())
+                  calculateGoalCalories()
             }
         })
 
@@ -182,8 +184,8 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
 
         btnNewDay.setOnClickListener{
             db.deleteAllData()
-            calculateCalories()
-            calculateCaloriesBurned()
+            calculateCalories(text_date!!.text.toString())
+            calculateCaloriesBurned(text_date!!.text.toString())
             resetSteps()
         }
 
@@ -228,8 +230,8 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
                             "Date: " + text_date!!.text.toString(),
                     Toast.LENGTH_LONG
                 ).show()
-                calculateCalories()
-                calculateCaloriesBurned()
+                calculateCalories(text_date!!.text.toString())
+                calculateCaloriesBurned(text_date!!.text.toString())
             }
         }
     }
@@ -339,10 +341,10 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
     }
 
     // function to calculate the calories gained based on meals
-    fun calculateCalories() {
+    fun calculateCalories(date : String) {
         var context = this
         var db = MealDatabaseHandler(context)
-        val data = db.readData()
+        val data = db.readDataByDate(date)
         var totalCalories = 0
         for (i in 0 until data.size) {
             totalCalories += data.get(i).calories
@@ -352,10 +354,10 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
     }
 
     //function to calculate the calories burned based on steps each step where each step is 0.04 calories
-    fun calculateCaloriesBurned() {
+    fun calculateCaloriesBurned(date : String) {
         var context = this
         var db = MealDatabaseHandler(context)
-        val data = db.readData()
+        val data = db.readDataByDate(date)
 
         var dbUser = DatabaseHandler(context)
         val userData = dbUser.readData()
