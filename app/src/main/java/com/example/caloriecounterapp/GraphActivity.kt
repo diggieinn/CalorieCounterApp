@@ -132,21 +132,6 @@ class GraphActivity : AppCompatActivity() {
                     }
 
 
-//                    CaloriesTextView!!.text = ((totalCalories - remainingCalories)/totalCalories*100).toString() + "%%"
-//                    ProteinTextView!!.text = ((protein/120)*100).toString() + "%"
-//                    FatTextView!!.text = ((fat/65)*100).toString() + "%"
-//                    CarbsTextView!!.text = ((carbs/300)*100).toString() + "%"
-//
-//                    var c = CaloriesTextView!!.text
-//                    var p = ProteinTextView!!.text
-//                    var f = FatTextView!!.text
-//                    var ca = CarbsTextView!!.text
-//
-//
-//                    CarbsProgressBar!!.progress = (carbs/300)*100.toInt()
-//                    ProteinProgressBar!!.progress = (protein/120)*100.toInt()
-//                    FatProgressBar!!.progress = (fat/65)*100.toInt()
-//                    CaloriesProgressBar!!.progress = ((totalCalories - remainingCalories)/totalCalories*100).toInt()
 
                     Toast.makeText(this@GraphActivity, "Carbs: $calories, Protein: $protein, Fat: $fat Calories: $calories", Toast.LENGTH_LONG).show()
 
@@ -165,10 +150,6 @@ class GraphActivity : AppCompatActivity() {
                     FatProgressBar!!.progress = f.toInt()
                     CaloriesProgressBar!!.progress = ca.toInt()
 
-
-
-                    // a toast to show the data that was updated
-                   // Toast.makeText(this@GraphActivity, "Carbs: $c, Protein: $p, Fat: $f, Calories: $ca", Toast.LENGTH_LONG).show()
 
                 }
             }

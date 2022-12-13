@@ -106,17 +106,6 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         return list
     }
 
-    //function that searches if user with ID 1 exists returns true if it does, false if it doesn't
-    fun searchUser(): Boolean {
-        val db = this.readableDatabase
-        val query = "Select * from " + TABLE_NAME + " where " + COL_ID + " = 1"
-        val result = db.rawQuery(query, null)
-
-        return result.moveToFirst()
-    }
-
-
-
     // Delete data all data from the database but not the database itself
     fun deleteAllData(){
         val db = this.writableDatabase
