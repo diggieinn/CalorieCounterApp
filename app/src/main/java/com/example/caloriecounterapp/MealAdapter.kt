@@ -2,7 +2,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.caloriecounterapp.Meals
@@ -20,9 +19,9 @@ class MealAdapter(private val context: Context, mealModelArrayList: ArrayList<Me
     override fun onBindViewHolder(holder: MealAdapter.ViewHolder, position: Int) {
         // to set data to textview and imageview of each card layout
         val model: Meals = mealModelArrayList[position]
-        holder.courseNameTV.text = "Food Description: \n" + model.name
-        holder.courseRatingTV.text = "Calories: \n" + model.calories.toString()
-        holder.courseIV.text = "Date: \n" + model.date
+        holder.foodDescriptionTv.text = "Food Description: \n" + model.name
+        holder.caloriesTV.text = "Calories: \n" + model.calories.toString()
+        holder.dateTv.text = "Date: \n" + model.date
     }
 
     override fun getItemCount(): Int {
@@ -32,13 +31,13 @@ class MealAdapter(private val context: Context, mealModelArrayList: ArrayList<Me
 
     // View holder class for initializing of your views such as TextView and Imageview.
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val courseIV: TextView
-        val courseNameTV: TextView
-        val courseRatingTV: TextView
+        val dateTv: TextView
+        val foodDescriptionTv: TextView
+        val caloriesTV: TextView
         init {
-            courseIV = itemView.findViewById(R.id.idIVCourseImage)
-            courseNameTV = itemView.findViewById(R.id.idTVCourseName)
-            courseRatingTV = itemView.findViewById(R.id.idTVCourseRating)
+            dateTv = itemView.findViewById(R.id.idIVCourseImage)
+            foodDescriptionTv = itemView.findViewById(R.id.idTVCourseName)
+            caloriesTV = itemView.findViewById(R.id.idTVCourseRating)
         }
     }
 

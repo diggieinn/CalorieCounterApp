@@ -24,5 +24,6 @@
     <string name="food_name" />
     <string name="food_info" />
     <string name="food_date" />
+    <string name="title" />
 
 </resources>

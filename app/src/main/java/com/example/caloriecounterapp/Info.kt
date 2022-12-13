@@ -20,29 +20,33 @@ class Info : AppCompatActivity() {
         setContentView(R.layout.activity_info)
 
 
-        //navigation drawer
-        // Display the hamburger icon to launch the drawer
 
-        // Call findViewById on the DrawerLayout
         drawerLayout = findViewById(R.id.drawerLayout)
 
-        // Pass the ActionBarToggle action into the drawerListener
         actionBarToggle = ActionBarDrawerToggle(this, drawerLayout, 0, 0)
         drawerLayout.addDrawerListener(actionBarToggle)
 
-        // Display the hamburger icon to launch the drawer
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Call syncState() on the action bar so it'll automatically change to the back button when the drawer layout is open
         actionBarToggle.syncState()
 
 
-        // Call findViewById on the NavigationView
         navView = findViewById(R.id.navView)
 
-        // Call setNavigationItemSelectedListener on the NavigationView to detect when items are clicked
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+
+                R.id.mealManager -> {
+
+                    Intent(this, everydayActivity::class.java).also {
+                        startActivity(it)
+                    }
+
+                    Toast.makeText(this, "Meal Manager", Toast.LENGTH_SHORT).show()
+                    true
+
+                }
+
                 R.id.person -> {
 
                     Intent(this, Profile::class.java).also {
@@ -74,15 +78,33 @@ class Info : AppCompatActivity() {
                     Toast.makeText(this, "Info", Toast.LENGTH_SHORT).show()
                     true
                 }
+
                 R.id.menu_graph -> {
+
 
                     Intent(this, GraphActivity::class.java).also {
                         startActivity(it)
                     }
 
-                    Toast.makeText(this, "Menu Graph", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(this, "Schedule Water Intake", Toast.LENGTH_SHORT).show()
                     true
                 }
+
+
+                R.id.scheduleWater -> {
+
+
+                    Intent(this, DrinkWaterActivity::class.java).also {
+                        startActivity(it)
+                    }
+
+
+                    Toast.makeText(this, "Schedule Water Intake", Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+
                 else -> {
                     false
                 }

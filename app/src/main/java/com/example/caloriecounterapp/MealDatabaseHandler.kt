@@ -99,6 +99,13 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
         db.close()
     }
 
+    // Delete data from the database by given parameter day dd/mm/yyyy
+    fun deleteDataByDate(date: String){
+        val db = this.writableDatabase
+        db.delete(TABLE_NAME, "date = ?", arrayOf(date))
+        db.close()
+    }
+
     //return data that contains given Data dd/MM/yyyy
     @SuppressLint("Range")
     fun readDataByDate(date: String): MutableList<Meals> {
@@ -129,7 +136,7 @@ class MealDatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATA
         return list
     }
 
-    //readDatabyDate if category is NOT Water
+    //readDatabyDate if category is NOT Water, or category can be chosen
     @SuppressLint("Range")
     fun readDataByCategory(category: String): MutableList<Meals> {
         val list: MutableList<Meals> = ArrayList()

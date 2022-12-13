@@ -1,21 +1,24 @@
 package com.example.caloriecounterapp
 
-import MealAdapter
+import android.app.*
+import android.content.Context
 import android.content.Intent
+import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
-import android.widget.TextView
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
+import java.util.*
 
-class MealList : AppCompatActivity() {
-
+class DrinkWaterActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var actionBarToggle: ActionBarDrawerToggle
@@ -23,32 +26,14 @@ class MealList : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_meal_list_recycled);
+        setContentView(R.layout.activity_drink_water)
 
-        var context = this
-        var db = MealDatabaseHandler(context)
+        //drawer
 
-        val mealRV = findViewById<RecyclerView>(R.id.idRVCourse)
-
-        var mealModelList = db.readDataByCategory("Water")
-        mealModelList.sortBy { it.date }
-
-        val mealAdapter = MealAdapter(context, mealModelList as ArrayList<Meals>)
-
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        mealRV.layoutManager = linearLayoutManager
-        mealRV.adapter = mealAdapter
-
-
-
-
-        //navigation drawer
         drawerLayout = findViewById(R.id.drawerLayout)
 
         actionBarToggle = ActionBarDrawerToggle(this, drawerLayout, 0, 0)
         drawerLayout.addDrawerListener(actionBarToggle)
-
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -115,10 +100,11 @@ class MealList : AppCompatActivity() {
                     true
                 }
 
+
                 R.id.scheduleWater -> {
 
 
-                    Intent(this, DrinkWaterActivity::class.java).also {
+                    Intent(this, Info::class.java).also {
                         startActivity(it)
                     }
 
@@ -133,14 +119,77 @@ class MealList : AppCompatActivity() {
                 }
             }
         }
+
+
+
+
+
+        var scheduleWaterIntakeBtn = findViewById<Button>(R.id.scheduleWaterBtn)
+        scheduleWaterIntakeBtn.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+
+                var datePicker = findViewById<DatePicker>(R.id.datePickerWater)
+                var timePicker = findViewById<TimePicker>(R.id.timePickerWater)
+                var day = datePicker.dayOfMonth
+                var month = datePicker.month
+                var year = datePicker.year
+                var hour = timePicker.hour
+                var minute = timePicker.minute
+                var calendar = Calendar.getInstance()
+                calendar.set(year, month, day, hour, minute, 0)
+                var time = calendar.timeInMillis
+
+
+                triggerNotificationAtTime(time)
+            }
+        })
     }
 
-    //nav view methods
+
+
+
+
+
+    //triggerNotification() at a specific time
+    fun triggerNotificationAtTime(time : Long){
+        var notificationManager : NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val notificationChannel = NotificationChannel("MY_CHANNEL_ID", "My Notifications", NotificationManager.IMPORTANCE_DEFAULT)
+            // Configure the notification channel.
+            notificationChannel.description = " "
+            notificationChannel.vibrationPattern = longArrayOf(0, 1000)
+            notificationChannel.enableVibration(true)
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+
+        var nb : NotificationCompat.Builder = NotificationCompat.Builder(this, "MY_CHANNEL_ID")
+        nb.setDefaults(Notification.DEFAULT_ALL)
+        nb.setWhen(System.currentTimeMillis())
+        nb.setSmallIcon(R.mipmap.ic_launcher)
+        nb.setTicker(" ")
+        nb.setContentTitle(" ")
+        nb.setContentText(" ")
+        nb.setContentInfo(" ");
+
+
+        // create an intent to trigger the notification
+        var intent : Intent = Intent(this, NotificationHandler::class.java)
+        var pendingIntent : PendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+
+        // create an alarm manager to trigger the notification
+        var alarmManager : AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent)
+
+        var toast = Toast.makeText(this, "Notification set", Toast.LENGTH_SHORT)
+
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         drawerLayout.openDrawer(navView)
         return true
     }
 
+    // override the onBackPressed() function to close the Drawer when the back button is clicked
     override fun onBackPressed() {
         if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             this.drawerLayout.closeDrawer(GravityCompat.START)
@@ -148,7 +197,9 @@ class MealList : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+
 }
 
 
-
+//}

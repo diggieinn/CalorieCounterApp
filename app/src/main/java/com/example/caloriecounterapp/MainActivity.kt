@@ -31,9 +31,6 @@ class MainActivity : AppCompatActivity() {
         val weight = findViewById<EditText>(R.id.editWeight)
 
         val radioGruop = findViewById<RadioGroup>(R.id.radioGroup)
-        val radioMale = findViewById<RadioButton>(R.id.radioMale) // not used
-        val radioFemale = findViewById<RadioButton>(R.id.radioFemale) //not used
-
 
         val sharedPref = getSharedPreferences("myPref", MODE_PRIVATE)
         val editor = sharedPref.edit()

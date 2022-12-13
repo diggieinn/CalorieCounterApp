@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/mealManager"
+        android:icon="@drawable/ic_baseline_set_meal_24"
+        android:title="Meal Manager" />
+
+    <item
         android:id="@+id/person"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="Profile" />
@@ -21,5 +26,9 @@
         android:icon="@drawable/ic_baseline_pie_chart_24"
         android:title="Nutrition Info Graph" />
 
+    <item
+        android:id="@+id/scheduleWater"
+        android:icon="@drawable/ic_baseline_water_drop_24"
+        android:title="Schedule Water Intake" />
 
 </menu>

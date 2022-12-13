@@ -45,6 +45,9 @@ class GraphActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_graph)
 
+
+
+
         CarbsProgressBar = findViewById<ProgressBar>(R.id.CarbsProgressBar)
         ProteinProgressBar = findViewById<ProgressBar>(R.id.ProteinProgressBar)
         FatProgressBar = findViewById<ProgressBar>(R.id.FatProgressBar)
@@ -56,17 +59,23 @@ class GraphActivity : AppCompatActivity() {
         FatTextView = findViewById<TextView>(R.id.idTextFatGraph)
         CaloriesTextView = findViewById<TextView>(R.id.idTextCaloriesGraph)
 
+        // variable to get the current date and send to string format mm/dd/yyyy
+
+        val day = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
 
-        var db = MealDatabaseHandler(this)
-        var meals = db.readData()
+        var db = DatabaseHandler(this)
+        var user = db.readData()
+
+        var dbMeal = MealDatabaseHandler(this)
+        val data = dbMeal.readDataByDate(day)
+
+
+
 
         text_date = findViewById<TextView>(R.id.dateText)
         button_date = findViewById<Button>(R.id.changeDateOnGraph)
 
-        // variable to get the current date and send to string format mm/dd/yyyy
-
-        val day = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
 
         text_date!!.text = day
@@ -112,48 +121,86 @@ class GraphActivity : AppCompatActivity() {
                             calories += meal.calories
                         }
                     }
+
+
+                    // set text to the textviews as percentages of calori
+
+                    var totalCalories = user[0].caloriesTarget
+                    var remainingCalories = 0
+                    for (i in 0 until data.size) {
+                        remainingCalories += data.get(i).calories
+                    }
+
+
+//                    CaloriesTextView!!.text = ((totalCalories - remainingCalories)/totalCalories*100).toString() + "%%"
+//                    ProteinTextView!!.text = ((protein/120)*100).toString() + "%"
+//                    FatTextView!!.text = ((fat/65)*100).toString() + "%"
+//                    CarbsTextView!!.text = ((carbs/300)*100).toString() + "%"
+//
+//                    var c = CaloriesTextView!!.text
+//                    var p = ProteinTextView!!.text
+//                    var f = FatTextView!!.text
+//                    var ca = CarbsTextView!!.text
+//
+//
+//                    CarbsProgressBar!!.progress = (carbs/300)*100.toInt()
+//                    ProteinProgressBar!!.progress = (protein/120)*100.toInt()
+//                    FatProgressBar!!.progress = (fat/65)*100.toInt()
+//                    CaloriesProgressBar!!.progress = ((totalCalories - remainingCalories)/totalCalories*100).toInt()
+
+                    Toast.makeText(this@GraphActivity, "Carbs: $calories, Protein: $protein, Fat: $fat Calories: $calories", Toast.LENGTH_LONG).show()
+
+                    var c = (calories.toDouble()/totalCalories)*100
+                    var p = (protein.toDouble()/120)*100
+                    var f = (fat.toDouble()/65)*100
+                    var ca = (carbs.toDouble()/300)*100
+
+                    CaloriesTextView!!.text = c.toString() + " cal"
+                    ProteinTextView!!.text = p.toString() + " g"
+                    FatTextView!!.text = f.toString() + " g"
+                    CarbsTextView!!.text = c.toString() + " g"
+
+                    CarbsProgressBar!!.progress = c.toInt()
+                    ProteinProgressBar!!.progress = p.toInt()
+                    FatProgressBar!!.progress = f.toInt()
+                    CaloriesProgressBar!!.progress = ca.toInt()
+
+
+
                     // a toast to show the data that was updated
-                    Toast.makeText(this@GraphActivity, "Carbs: $carbs, Protein: $protein, Fat: $fat, Calories: $calories", Toast.LENGTH_LONG).show()
+                   // Toast.makeText(this@GraphActivity, "Carbs: $c, Protein: $p, Fat: $f, Calories: $ca", Toast.LENGTH_LONG).show()
 
-                    // set text to the textviews as percentages of calories
-                    CarbsTextView!!.text = ((carbs * 100)/(calories/0.45)).toString() + "%"
-                    ProteinTextView!!.text = ((protein * 100)/(calories/0.45)).toString() + "%"
-                    FatTextView!!.text = ((fat * 100)/(calories/0.45)).toString() + "%"
-                    CaloriesTextView!!.text = calories.toString() + "kcal"
-                    
-
-
-                    CarbsProgressBar!!.progress = carbs
-                    ProteinProgressBar!!.progress = protein
-                    FatProgressBar!!.progress = fat
-                    CaloriesProgressBar!!.progress = calories
                 }
             }
         )
 
         //navigation drawer
-        // Display the hamburger icon to launch the drawer
-
-        // Call findViewById on the DrawerLayout
         drawerLayout = findViewById(R.id.drawerLayout)
 
-        // Pass the ActionBarToggle action into the drawerListener
         actionBarToggle = ActionBarDrawerToggle(this, drawerLayout, 0, 0)
         drawerLayout.addDrawerListener(actionBarToggle)
 
-        // Display the hamburger icon to launch the drawer
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Call syncState() on the action bar so it'll automatically change to the back button when the drawer layout is open
         actionBarToggle.syncState()
 
 
-        // Call findViewById on the NavigationView
         navView = findViewById(R.id.navView)
 
-        // Call setNavigationItemSelectedListener on the NavigationView to detect when items are clicked
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+
+                R.id.mealManager -> {
+
+                    Intent(this, everydayActivity::class.java).also {
+                        startActivity(it)
+                    }
+
+                    Toast.makeText(this, "Meal Manager", Toast.LENGTH_SHORT).show()
+                    true
+
+                }
+
                 R.id.person -> {
 
                     Intent(this, Profile::class.java).also {
@@ -187,18 +234,35 @@ class GraphActivity : AppCompatActivity() {
                 }
                 R.id.menu_graph -> {
 
+
                     Intent(this, GraphActivity::class.java).also {
                         startActivity(it)
                     }
 
-                    Toast.makeText(this, "Menu Graph", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(this, "Schedule Water Intake", Toast.LENGTH_SHORT).show()
                     true
                 }
+
+
+                R.id.scheduleWater -> {
+
+
+                    Intent(this, DrinkWaterActivity::class.java).also {
+                        startActivity(it)
+                    }
+
+
+                    Toast.makeText(this, "Schedule Water Intake", Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+
                 else -> {
                     false
                 }
             }
-        } //navigation drawer
+        }//navigation drawer
 
 
         // get the date from the textview and data from database to display on progress bar
