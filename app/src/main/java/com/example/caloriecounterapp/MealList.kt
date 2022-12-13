@@ -31,6 +31,7 @@ class MealList : AppCompatActivity() {
         val mealRV = findViewById<RecyclerView>(R.id.idRVCourse)
 
         var mealModelList = db.readDataByCategory("Water")
+        mealModelList.sortBy { it.date }
 
         val mealAdapter = MealAdapter(context, mealModelList as ArrayList<Meals>)
 

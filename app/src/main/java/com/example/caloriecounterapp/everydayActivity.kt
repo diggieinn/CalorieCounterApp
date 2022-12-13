@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -367,8 +368,18 @@ class everydayActivity : AppCompatActivity(), SensorEventListener {
             totalCalories += data.get(i).calories
         }
         val caloriesResult = findViewById<TextView>(R.id.txtRemainingCalories)
-        caloriesResult.text = "Remaining Calories: " + (totalCalories - loadData() * 0.04.toInt() - userData.get(0).caloriesTarget).toString()
-        //("Ramianing Calories should be Goal calories - total calories")
+        var result = (totalCalories - loadData() * 0.04.toInt() - userData.get(0).caloriesTarget).toString()
+
+        if(result.toDouble() > 0) {
+            // change the color of the text to red
+            caloriesResult.setTextColor(Color.parseColor("#FF0000"))
+            caloriesResult.text = "Calories over limit: " + result
+        } else {
+            caloriesResult.setTextColor(Color.parseColor("#FFBB86FC"))
+            caloriesResult.text = "Remaining Calories: " + result
+        }
+
+
     }
 //goal calories calculation
     fun calculateGoalCalories() {
